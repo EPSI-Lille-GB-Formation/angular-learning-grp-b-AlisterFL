@@ -11,7 +11,7 @@ import { BorderHighlightDirective } from '../border-highlight.directive';
     <article *ngIf="todo" border-highlight>
       <div class="grid">
         <label for="todo-{{todo.id}}">
-          <input type="checkbox" id="todo-{{todo.id}}">{{todo.title}}
+          <input type="checkbox" [checked]="todo.isCompleted" id="todo-{{todo.id}}" (click)="onCheck()" >{{todo.title}}
         </label>
         <div class="action">
           <a href="#">Edit</a>
@@ -37,4 +37,11 @@ export class TodoComponent {
 
   @Input("value")
   todo: Todo | undefined;
+
+  onCheck() {
+    if(this.todo) {
+      this.todo.isCompleted = !this.todo?.isCompleted
+      console.table(this.todo)
+    }
+  }
 }

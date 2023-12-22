@@ -1,1 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
+
+body {
+    max-width: 1400px;
+    margin: auto !important;
+}
+
+a{
+    margin-left: 8px;
+}
