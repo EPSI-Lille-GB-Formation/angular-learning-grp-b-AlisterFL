@@ -12,9 +12,10 @@ import { TodoComponent } from '../todo/todo.component';
 
     <a href="#" role="button" (click)="onClickTodo()"> A faire</a>
     <a href="#" role="button" (click)="onClickTodoCompleted()"> Terminée</a>
+    <a href="#" role="button" (click)="onClickTodoAll()"> Tout afficher</a>
 
     <ng-container *ngFor="let todo of todoList"> 
-      <todo *ngIf="todo.isCompleted === completedFilter" [value]="todo"/>
+      <todo *ngIf="todo.isCompleted === completedFilter || allList"  [value]="todo"/>
     </ng-container>
   `,
   styles: []
@@ -25,11 +26,18 @@ export class TodoList_Component {
 
   completedFilter = false
 
+  allList = false
+
   onClickTodo() {
     this.completedFilter = false;
+    this.allList = false;
   }
   onClickTodoCompleted() {
     this.completedFilter = true;
+    this.allList = false;
+  }
+  onClickTodoAll() {
+    this.allList = true;
   }
 
 }
