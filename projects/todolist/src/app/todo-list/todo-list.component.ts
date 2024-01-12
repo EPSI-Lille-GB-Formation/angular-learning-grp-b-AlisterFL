@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { TODOS} from '../../mock-todo';
 import { TodoComponent } from '../todo/todo.component';
 import { TodoService } from '../todo.service';
+import { Todo } from '../todo';
 
 @Component({
   selector: 'todo-list',
@@ -29,27 +30,28 @@ import { TodoService } from '../todo.service';
 })
 
 export class TodoList_Component {
-  todoList = TODOS;
+  todoList: Todo[] = [];
 
-  completedFilter = false
+  completedFilter: boolean = false
 
-  allList = false
+  allList: boolean = false
 
   constructor(private todoService: TodoService) {}
 
-  ngOnInit() {
-    console.log(this.todoService.getTodoList())
+  ngOnInit(): void {
+    this.todoService.getTodoList().subscribe(todos => this.todoList = todos)
+    this.todoService.getTodoById(5).subscribe(todo => console.log(todo))
   }
 
-  onClickTodo() {
+  onClickTodo(): void {
     this.completedFilter = false;
     this.allList = false;
   }
-  onClickTodoCompleted() {
+  onClickTodoCompleted(): void {
     this.completedFilter = true;
     this.allList = false;
   }
-  onClickTodoAll() {
+  onClickTodoAll(): void {
     this.allList = true;
   }
 
