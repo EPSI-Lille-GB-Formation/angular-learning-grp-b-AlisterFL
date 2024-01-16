@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TODOS} from '../../mock-todo';
-import { TodoComponent } from '../todo/todo.component';
-import { TodoService } from '../todo.service';
-import { Todo } from '../todo';
+
+import { TodoComponent } from './todo.component';
+import { TodoService } from '../../services/todo.service';
+import { Todo } from '../../models/todo';
 
 @Component({
   selector: 'todo-list',

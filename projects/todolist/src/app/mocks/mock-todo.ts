@@ -1,4 +1,4 @@
-import { Todo } from "./app/todo";
+import { Todo } from "../models/todo";
 
 export const TODOS: Todo [] = [
   {

@@ -1,7 +1,7 @@
 import { Component} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
-import {TodoList_Component} from './todo-list/todo-list.component'
+import {TodoList_Component} from './components/book/todo-list.component'
 
 @Component({
   selector: 'app-root',

@@ -1,12 +1,11 @@
 import { Component, Input } from '@angular/core';
-import { Todo } from '../todo';
+import { Todo } from '../../models/todo';
 import { CommonModule } from '@angular/common';
-import { BorderHighlightDirective } from '../border-highlight.directive';
 
 @Component({
   selector: 'todo',
   standalone: true,
-  imports: [CommonModule, BorderHighlightDirective],
+  imports: [CommonModule],
   template: `
     <article *ngIf="todo" border-highlight>
       <div class="grid">
