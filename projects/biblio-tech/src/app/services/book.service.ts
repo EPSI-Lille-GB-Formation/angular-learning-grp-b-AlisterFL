@@ -1,22 +1,22 @@
 import { Injectable } from '@angular/core';
-import { Todo } from '../models/todo';
+import { Book } from '../models/book';
 import { HttpClient } from '@angular/common/http';
 import { Observable, catchError, tap, of} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class TodoService {
+export class BookService {
 
-  todosUrl: string = 'api/todos'
+  booksUrl: string = 'api/books'
 
   constructor(
     private http: HttpClient
   ) { }
 
-  getTodoList(): Observable<Todo[]> {
-    return this.http.get<Todo[]>(this.todosUrl).pipe(
-      tap(todoList => console.log(todoList)),
+  getBookList(): Observable<Book[]> {
+    return this.http.get<Book[]>(this.booksUrl).pipe(
+      tap(bookList => console.log(bookList)),
       catchError(error => {
         console.log(error);
         return of([])
@@ -24,8 +24,8 @@ export class TodoService {
     )
   }
 
-  getTodoById(todoId: number): Observable<Todo> {
-    return this.http.get<Todo>(`${this.todosUrl}/${todoId}`).pipe(
+  getBookById(bookId: number): Observable<Book> {
+    return this.http.get<Book>(`${this.booksUrl}/${bookId}`).pipe(
       catchError(error => {
         console.log(error);
         return of ()

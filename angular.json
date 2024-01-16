@@ -3,29 +3,29 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "todolist": {
+    "biblio-tech": {
       "projectType": "application",
       "schematics": {},
-      "root": "projects/todolist",
-      "sourceRoot": "projects/todolist/src",
+      "root": "projects/biblio-tech",
+      "sourceRoot": "projects/biblio-tech/src",
       "prefix": "app",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/todolist",
-            "index": "projects/todolist/src/index.html",
-            "browser": "projects/todolist/src/main.ts",
+            "outputPath": "dist/biblio-tech",
+            "index": "projects/biblio-tech/src/index.html",
+            "browser": "projects/biblio-tech/src/main.ts",
             "polyfills": [
               "zone.js"
             ],
-            "tsConfig": "projects/todolist/tsconfig.app.json",
+            "tsConfig": "projects/biblio-tech/tsconfig.app.json",
             "assets": [
-              "projects/todolist/src/favicon.ico",
-              "projects/todolist/src/assets"
+              "projects/biblio-tech/src/favicon.ico",
+              "projects/biblio-tech/src/assets"
             ],
             "styles": [
-              "projects/todolist/src/styles.css"
+              "projects/biblio-tech/src/styles.css"
             ],
             "scripts": []
           },
@@ -57,10 +57,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "todolist:build:production"
+              "buildTarget": "biblio-tech:build:production"
             },
             "development": {
-              "buildTarget": "todolist:build:development"
+              "buildTarget": "biblio-tech:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -68,7 +68,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "todolist:build"
+            "buildTarget": "biblio-tech:build"
           }
         },
         "test": {
@@ -78,13 +78,13 @@
               "zone.js",
               "zone.js/testing"
             ],
-            "tsConfig": "projects/todolist/tsconfig.spec.json",
+            "tsConfig": "projects/biblio-tech/tsconfig.spec.json",
             "assets": [
-              "projects/todolist/src/favicon.ico",
-              "projects/todolist/src/assets"
+              "projects/biblio-tech/src/favicon.ico",
+              "projects/biblio-tech/src/assets"
             ],
             "styles": [
-              "projects/todolist/src/styles.css"
+              "projects/biblio-tech/src/styles.css"
             ],
             "scripts": []
           }

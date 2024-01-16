@@ -1,16 +1,16 @@
 import { Component, Input } from '@angular/core';
-import { Todo } from '../../models/todo';
+import { Book } from '../../models/book';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'todo',
+  selector: 'book',
   standalone: true,
   imports: [CommonModule],
   template: `
-    <article *ngIf="todo" border-highlight>
+    <article *ngIf="book" border-highlight>
       <div class="grid">
-        <label for="todo-{{todo.id}}">
-          <input type="checkbox" [checked]="todo.isCompleted" id="todo-{{todo.id}}" (click)="onCheck()" >{{todo.title}}
+        <label for="book-{{book.id}}">
+          <input type="checkbox" [checked]="book.isCompleted" id="book-{{book.id}}" (click)="onCheck()" >{{book.title}}
         </label>
         <div class="action">
           <a href="#">Edit</a>
@@ -32,15 +32,15 @@ import { CommonModule } from '@angular/common';
     }`
   ]
 })
-export class TodoComponent {
+export class BookComponent {
 
   @Input("value")
-  todo: Todo | undefined;
+  book: Book | undefined;
 
   onCheck() {
-    if(this.todo) {
-      this.todo.isCompleted = !this.todo?.isCompleted
-      console.table(this.todo)
+    if(this.book) {
+      this.book.isCompleted = !this.book?.isCompleted
+      console.table(this.book)
     }
   }
 }

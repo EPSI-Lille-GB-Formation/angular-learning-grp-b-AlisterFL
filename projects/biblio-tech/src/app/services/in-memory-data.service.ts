@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { InMemoryDbService } from 'angular-in-memory-web-api'
-import { TODOS } from '../mocks/mock-todo'
+import { BOOKS } from '../mocks/mock-book'
 ;
 @Injectable({
   providedIn: 'root'
@@ -8,7 +8,7 @@ import { TODOS } from '../mocks/mock-todo'
 export class InMemoryDataService implements InMemoryDbService {
 
   createDb() {
-    const todos = TODOS
-    return {todos}
+    const books = BOOKS
+    return {books}
   }
 }

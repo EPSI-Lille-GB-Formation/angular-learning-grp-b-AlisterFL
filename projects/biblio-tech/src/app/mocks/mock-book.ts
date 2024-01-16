@@ -1,6 +1,6 @@
-import { Todo } from "../models/todo";
+import { Book } from "../models/book";
 
-export const TODOS: Todo [] = [
+export const BOOKS: Book [] = [
   {
     id: 1,
     title: 'Peindre le mur',
