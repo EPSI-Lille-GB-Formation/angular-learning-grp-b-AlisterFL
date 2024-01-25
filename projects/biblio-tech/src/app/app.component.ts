@@ -2,18 +2,19 @@ import { Component} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import {BookList_Component} from './components/book/book-list.component'
+import { HeaderComponent } from './components/header/header.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet,  BookList_Component],
+  imports: [CommonModule, RouterOutlet,  BookList_Component, HeaderComponent],
   template: `
-  <book-list/>
+  <app-header></app-header>
+  <router-outlet></router-outlet>
   `,
   styles: []
 })
 
 export class AppComponent {
-  constructor(){ }
 
 }

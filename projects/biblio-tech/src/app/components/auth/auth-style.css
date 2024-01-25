@@ -1,0 +1,80 @@
+/* Grid */
+body>main {
+    min-height: calc(100vh - 7rem);
+    padding: 1rem 0;
+    height: 100vh;
+  }
+
+  .container{
+    height: 100vh;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  article {
+    padding: 0;
+    overflow: hidden;
+  }
+  
+  article div {
+    padding: 1rem;
+  }
+
+  .error-message {
+    color: red;
+    margin-top: 10px;
+  }
+  
+  @media (min-width: 576px) {
+    body>main {
+      padding: 1.25rem 0;
+    }
+  
+    article div {
+      padding: 1.25rem;
+    }
+  }
+  
+  @media (min-width: 768px) {
+    body>main {
+      padding: 1.5rem 0;
+    }
+  
+    article div {
+      padding: 1.5rem;
+    }
+  }
+  
+  @media (min-width: 992px) {
+    body>main {
+      padding: 1.75rem 0;
+    }
+  
+    article div {
+      padding: 1.75rem;
+    }
+  }
+  
+  @media (min-width: 1200px) {
+    body>main {
+      padding: 2rem 0;
+    }
+  
+    article div {
+      padding: 2rem;
+    }
+  }
+  
+  /* Nav */
+  summary[role="link"].secondary:is([aria-current], :hover, :active, :focus) {
+    background-color: transparent;
+    color: var(--secondary-hover);
+  }
+  
+  /* Footer */
+  body>footer {
+    padding: 1rem 0;
+  }
+

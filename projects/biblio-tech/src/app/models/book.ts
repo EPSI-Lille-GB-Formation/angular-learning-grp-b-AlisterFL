@@ -2,12 +2,12 @@ export class Book {
     constructor(
         public id: number,
         public title: string,
-        public content: string,
-        public author: string,
-        public isCompleted: boolean,
+        public resume: string,
+        public image: string,
+        public updateAt: Date,
         public createdAt: Date,
-        public completedAt: Date|null
     ){
         this.createdAt = new Date();
+        this.updateAt = new Date();
     }
 }

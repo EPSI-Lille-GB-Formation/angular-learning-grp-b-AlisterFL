@@ -1,46 +1,39 @@
 import { Component, Input } from '@angular/core';
 import { Book } from '../../models/book';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'book',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   template: `
-    <article *ngIf="book" border-highlight>
-      <div class="grid">
-        <label for="book-{{book.id}}">
-          <input type="checkbox" [checked]="book.isCompleted" id="book-{{book.id}}" (click)="onCheck()" >{{book.title}}
-        </label>
-        <div class="action">
-          <a href="#">Edit</a>
-          <a href="#">Delete</a>
+    <a *ngIf="book" [routerLink]="['/books', createSlug(book.title), book.id]">
+      <div class="article" *ngIf="book" border-highlight>
+        <div class="book-image">
+          <img [src]="book.image" alt="{{book.title}}" />
+          <div class="title-band" [class.long-title]="book.title.length > 35">
+            <h2>{{book.title}}</h2>
+          </div>
+          <div class="resume">
+            <p>{{book.resume}}</p>
+          </div>
         </div>
       </div>
-    </article>
+    </a>
     `,
-  styles: [
-    `
-    .action {
-      display: flex;
-      flex-direction: row;
-      justify-content:flex-end;
-    }
-
-    .action a{
-      margin-left: 8px;
-    }`
-  ]
+  styleUrls: ['./book-style.css']
 })
 export class BookComponent {
+
+  createSlug(title: string): string {
+    return title.toLowerCase().replace(/\s+/g, '-');
+  }
 
   @Input("value")
   book: Book | undefined;
 
-  onCheck() {
-    if(this.book) {
-      this.book.isCompleted = !this.book?.isCompleted
-      console.table(this.book)
-    }
-  }
+
+  
+
 }

@@ -22,11 +22,13 @@ import { Book } from '../../models/book';
     [class.secondary]="allList"
     (click)="onClickBookAll()"> Tout afficher</a>
 
-    <ng-container *ngFor="let book of bookList"> 
-      <book *ngIf="book.isCompleted === completedFilter || allList" [value]="book"/>
-    </ng-container>
+    <div class="booklist">
+      <ng-container *ngFor="let book of bookList"> 
+        <book [value]="book"/>
+      </ng-container>
+    </div>
   `,
-  styles: []
+  styleUrls: ['./book-style.css']
 })
 
 export class BookList_Component {
