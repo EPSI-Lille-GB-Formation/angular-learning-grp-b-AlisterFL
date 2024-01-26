@@ -10,10 +10,14 @@ import { Book } from '../../../models/book';
   template: `
     <main class="container">
         <article class="grid">
-            <div>
-            <h1>{{ book?.title }}</h1>
-            <p>{{ book?.resume }}</p>
-            <img [src]="book?.image" alt="{{ book?.title }}" />
+            <div class="book-details">
+            <div class="image-container">
+                <img [src]="book?.image" alt="{{ book?.title }}" />
+            </div>
+            <div class="info-container">
+                <h1>{{ book?.title }}</h1>
+                <p>{{ book?.resume }}</p>
+            </div>
             </div>
         </article>
     </main>
