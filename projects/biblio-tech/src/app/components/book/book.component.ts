@@ -10,16 +10,12 @@ import { RouterModule } from '@angular/router';
   template: `
     <a *ngIf="book" [routerLink]="['/books', createSlug(book.title), book.id]">
       <div class="article" *ngIf="book" border-highlight>
-        <div class="book-image">
           <img [src]="book.image" alt="{{book.title}}" />
-          <div class="title-band" [class.long-title]="book.title.length > 35">
+          <div class="book-info" [class.long-title]="book.title.length > 30">
             <h2>{{book.title}}</h2>
-          </div>
-          <div class="resume">
-            <p>{{book.resume}}</p>
+            <h4> de Pierre Jacques</h4>
           </div>
         </div>
-      </div>
     </a>
     `,
   styleUrls: ['./book-style.css']

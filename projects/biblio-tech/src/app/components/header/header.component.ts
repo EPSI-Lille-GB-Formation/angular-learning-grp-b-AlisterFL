@@ -10,9 +10,10 @@ import { CommonModule } from '@angular/common';
   template: `
     <nav>
       <ul>
-        <li><strong>Biblio'Tech</strong></li>
+      <li><a [routerLink]="['/']"><strong>Biblio'Tech</strong></a></li>
       </ul>
       <ul>
+      <li><a class="write-book" (click)="redirectToNewBook()">Écrire un livre</a></li>
       <li><a *ngIf="!isAuthenticated()" (click)="navigateToSignup()">S'inscrire</a></li>
         <li><a *ngIf="!isAuthenticated()" (click)="navigateToLogin()">Se connecter</a></li>
         <li *ngIf="isAuthenticated()">
@@ -39,6 +40,10 @@ export class HeaderComponent implements OnInit{
     console.log(this.userFirstName)
   }
 
+  redirectToNewBook() {
+    this.router.navigate(['/newbook']);
+  }
+
   navigateToSignup() {
     this.router.navigate(['/signup']);
   }
@@ -56,6 +61,8 @@ export class HeaderComponent implements OnInit{
   isAuthenticated(): boolean {
     return localStorage.getItem('authToken') !== null;
   }
+
+
 
   
 }

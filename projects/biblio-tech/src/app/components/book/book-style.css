@@ -1,94 +1,70 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@400;700&display=swap');
+
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Montserrat Regular'), local('Montserrat-Regular'), url(https://fonts.gstatic.com/s/montserrat/v22/JTUSjIg1_i6t8kCHKm459WxZc_o3HDM_qw.woff2) format('woff2');
+}
+
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Roboto Regular'), local('Roboto-Regular'), url(https://fonts.gstatic.com/s/roboto/v20/KFOmCnqEu92Fr1Mu4mxP.ttf) format('truetype');
+}
+
+
 body, a {
   text-decoration: none;
 }
 
 .article {
-  width: 300px;
-  height: 380px;
   display: flex;
   flex-direction: column;
-  border-radius: 25px;
-  position: relative;
-  overflow: hidden;
-  text-align: center;
-  box-shadow: 0px 3px 13px -4px rgba(0,0,0,0.78);
-}
-
-.book-image {
-  position: relative;
-  overflow: hidden;
-  border-radius: 25px;
-}
-
-.book-image img {
-  width: 100%;
-  height: 300px;
-  object-fit: cover;
-  border-top-left-radius: 25px;
-  border-top-right-radius: 25px;
-  transition: filter 0.3s ease-in-out, transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
-.article:hover .book-image img {
-  filter: brightness(30%);
-  transform: scale(1.1);
-}
-
-.title-band {
-  background-color: rgba(52 52 52);
-  border-bottom-left-radius: 25px;
-  border-bottom-right-radius: 25px;
-  position: relative;
-  z-index: 1;
-  height: 80px;
-  display: flex;
-  justify-content: center;
   align-items: center;
+  text-align: center;
+  max-width: 350px;
 }
 
-.title-band h2 {
-  color: white;
-  width: 250px;
-  margin: 0;
-  white-space: normal;
+.article img {
+  width: 300px;
+  height: 450px;
+  object-fit: cover;
+  border-radius: 7px; 
+  box-shadow: 0px 6px 12px -3px rgba(0,0,0,0.35);
+}
+
+.article .book-info {
+  margin-top: 10px;
+  width: 300px
+}
+
+.article h2 {
+  margin: 0 auto;
+  font-size: 1.5em;
+  width: 280px;
+  font-family: 'Montserrat';
+}
+
+.article h2.long-title {
+  font-size: 1em;
+  line-height: 0.4;
+}
+
+.article h4 {
+  margin: 5px 0 0;
+  font-size: 1em;
+  color: #555;
+  font-family: 'Roboto';
+}
+
+.article .long-title h2 {
+  font-size: 1em;
   line-height: 1.2;
-  font-size: 1.5rem;
 }
 
-.long-title>h2{
-  font-size: 1.1rem;
-}
 
-.resume {
-  position: absolute;
-  bottom: 80px;
-  left: 0;
-  width: 100%;
-  padding: 20px;
-  opacity: 0;
-  transition: opacity 0.3s ease-in-out;
-}
-
-.resume p {
-  color: white;
-}
-
-.article:hover .resume {
-  opacity: 1;
-}
-
-  
-
-  
-.action {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-  }
-
-.action a {
-    margin-left: 8px;
-  }
 
 .booklist{
     display: flex;
