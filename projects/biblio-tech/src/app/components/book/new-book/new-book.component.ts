@@ -5,11 +5,14 @@ import { Book } from '../../../models/book';
 import { Category } from '../../../models/category';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { BelongService } from '../../../services/belong.service';
+import { Belong } from '../../../models/belong';
 
 @Component({
   selector: 'book-list',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, CommonModule],
   template: `
  <main class="container">
   <article class="grid">
@@ -43,8 +46,8 @@ import { Router } from '@angular/router';
           [(ngModel)]="book.image"
         />
         <!-- Menu déroulant pour les catégories -->
-        <label for="categories">Catégorie :</label>
-        <select name="categories" id="categories" [(ngModel)]="selectedCategory">
+        <label for="categories">Catégories :</label>
+        <select name="categories" id="categories" [(ngModel)]="selectedCategories" multiple (click)="loadCategories()">
           <option *ngFor="let category of categories" [value]="category.id">{{ category.label }}</option>
         </select>
         <button type="submit" class="contrast">Créer le livre</button>
@@ -58,27 +61,23 @@ import { Router } from '@angular/router';
   styleUrls: ['./new-book.css']
 })
 
-export class NewBookComponent implements OnInit {
+export class NewBookComponent implements OnInit{
 
   bookList: Book[] = [];
   book: Book = new Book(0, '', '', '',new Date(),new Date());
   categories: Category[] = [];
-  selectedCategory: number | undefined; 
+  selectedCategories: number[] = [];
 
-  constructor(private bookService: BookService, private router: Router, private categoryService: CategoryService,) {}
+  constructor(
+    private bookService: BookService,
+    private router: Router,
+    private categoryService: CategoryService,
+    private belongService: BelongService
+  ) {}
   
   ngOnInit(): void {
-    // Chargez la liste des catégories au moment de l'initialisation du composant
-    this.categoryService.getCategories().subscribe(
-      (categories) => {
-        this.categories = categories;
-      },
-      (error) => {
-        console.error('Erreur lors du chargement des catégories:', error);
-      }
-    );
+    this.loadCategories();
   }
-
 
   onSubmit(): void {
 
@@ -93,19 +92,43 @@ export class NewBookComponent implements OnInit {
     }
 
    // Appel de la méthode du service pour ajouter un nouveau livre
-    this.bookService.addBook(this.book).subscribe(
-      (newBook) => {
-        console.log('Livre ajouté avec succès:', newBook);
-        // Rediriger vers une page appropriée après l'ajout du livre
-        this.router.navigate(['/books', this.createSlug(newBook.title), newBook.id]);
-      },
-      (error) => {
-        console.error('Erreur lors de l\'ajout du livre:', error);
-        // Gérez l'erreur, par exemple, affichez un message à l'utilisateur
-      }
-    );
+   this.bookService.addBook(this.book).subscribe(
+    (newBook) => {
+      console.log('Livre ajouté avec succès:', newBook);
+
+      // Enregistrer les catégories dans la table Belong
+      this.selectedCategories.forEach(categoryId => {
+        const belong: Belong = { bookId: newBook.id, categoryId};
+        this.belongService.addBelong(belong).subscribe(
+          (newBelong) => {
+            console.log('Relation ajoutée avec succès:', newBelong);
+          },
+          (error) => {
+            console.error('Erreur lors de l\'ajout de la relation:', error);
+          }
+        );
+      });
+
+      // Rediriger vers une page appropriée après l'ajout du livre
+      // this.router.navigate(['/books', this.createSlug(newBook.title), newBook.id]);
+    },
+    // ... (le reste de la méthode reste inchangé) ...
+  );
 
 
+  }
+
+  loadCategories(): void {
+    if (this.categories.length === 0) {
+      this.categoryService.getCategories().subscribe(
+        (categories) => {
+          this.categories = categories;
+        },
+        (error) => {
+          console.error('Erreur lors du chargement des catégories:', error);
+        }
+      );
+    }
   }
 
   createSlug(title: string): string {

@@ -1,6 +1,6 @@
-import { Categories } from '../models/category';
+import { Category } from '../models/category';
 
-export const CATEGORIES: Categories[] = [
+export const CATEGORIES: Category[] = [
     { 
         id: 1,
         label: 'Science-fiction'
