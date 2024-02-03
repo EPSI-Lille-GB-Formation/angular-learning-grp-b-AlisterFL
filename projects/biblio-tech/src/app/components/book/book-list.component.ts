@@ -6,6 +6,8 @@ import { BookService } from '../../services/book.service';
 import { Book } from '../../models/book';
 import { CategoryService } from '../../services/category.service';
 import { Category } from '../../models/category';
+import { Belong } from '../../models/belong';
+import { BelongService } from '../../services/belong.service';
 
 @Component({
   selector: 'book-list',
@@ -23,15 +25,25 @@ import { Category } from '../../models/category';
 
 export class BookList_Component {
   bookList: Book[] = [];
+  belongList: Belong[] = [];
   categoryInfo: { id: number, label: string }[] = [];
 
-  constructor(private bookService: BookService, private categoryService: CategoryService) {}
+  constructor(private bookService: BookService, private categoryService: CategoryService, private belongService: BelongService) {}
 
   
 
   ngOnInit(): void {
     this.bookService.getBookList().subscribe(books => this.bookList = books)
     this.loadCategoryInfo();
+    this.belongService.getBelongs().subscribe(
+      (belongs: Belong[]) => {
+        this.belongList = belongs;
+        console.log("belong : ", this.belongList);
+      },
+      (error) => {
+        console.error('Erreur lors du chargement des belongs:', error);
+      }
+    );
   }
 
   loadCategoryInfo(): void {
@@ -44,6 +56,7 @@ export class BookList_Component {
         console.error('Erreur lors du chargement des catégories:', error);
       }
     );
+
   }
 
 }

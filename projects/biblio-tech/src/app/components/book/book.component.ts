@@ -14,10 +14,14 @@ import { Belong } from '../../models/belong';
       <div class="article" *ngIf="book" border-highlight>
         <img [src]="book.image" alt="{{ book.title }}" />
         <div class="book-info" [class.long-title]="book.title.length > 30">
-          <h2>{{ book.title }}</h2>
-          <h4>de Pierre Jacques</h4>
-          <div *ngFor="let categoryLabel of categoryLabels">
-            <h3>{{ categoryLabel }}</h3>
+          <div class="titleAuthor">
+            <h2>{{ book.title }}</h2>
+            <h3>de Pierre Jacques</h3>
+          </div>
+          <div class="categories">
+            <div *ngFor="let bookCategoryLabel of bookCategoryLabels">
+              <h4>{{ bookCategoryLabel }}</h4>
+            </div>
           </div>
         </div>
       </div>
@@ -38,6 +42,9 @@ export class BookComponent implements OnInit {
 
   categoryLabels: string[] = [];
   belongs: Belong[] = [];
+  // Catégories spécifiques du livre
+  bookCategories: { id: number; label: string }[] = [];
+  bookCategoryLabels: string[] = [];
 
   constructor(private belongService: BelongService) {}
 
@@ -47,11 +54,15 @@ export class BookComponent implements OnInit {
         (belongs: Belong[]) => {
           // Mapping des belongs aux libellés correspondants
           const categoryIds = belongs.map((belong) => belong.categoryId);
-          this.categoryLabels = this.getCategoryLabels(categoryIds);
+          const bookCategories = this.getCategoryLabels(categoryIds);
+          console.log("categoryIds", categoryIds)
+
+          // Extraire les libellés
+          this.bookCategoryLabels = bookCategories.map((category) => category.label);
 
           console.log(
             `Category labels for book ${this.book?.id}:`,
-            this.categoryLabels
+            this.bookCategoryLabels
           );
         },
         (error: any) => {
@@ -64,10 +75,9 @@ export class BookComponent implements OnInit {
     }
   }
 
-  getCategoryLabels(categoryIds: number[]): string[] {
-    return categoryIds.map((categoryId) => {
-      const category = this.categoryInfo.find((c) => c.id === categoryId);
-      return category ? category.label : 'N/A';
-    });
+  getCategoryLabels(categoryIds: number[]): { id: number; label: string }[] {
+    return categoryIds
+      .map((categoryId) => this.categoryInfo.find((c) => c.id === categoryId))
+      .filter((category): category is { id: number; label: string } => !!category);
   }
 }
