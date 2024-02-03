@@ -44,4 +44,10 @@ export class BelongService {
       })
     );
   }
+
+  // Récupère les Belongs comportant l'IdBook
+  getBelongsByBookId(bookId: number): Observable<Belong[]> {
+    const url = `${this.belongsUrl}?bookId=${bookId}`;
+    return this.http.get<Belong[]>(url);
+  }
 }

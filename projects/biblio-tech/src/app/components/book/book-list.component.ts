@@ -4,27 +4,17 @@ import { CommonModule } from '@angular/common';
 import { BookComponent } from './book.component';
 import { BookService } from '../../services/book.service';
 import { Book } from '../../models/book';
+import { CategoryService } from '../../services/category.service';
+import { Category } from '../../models/category';
 
 @Component({
   selector: 'book-list',
   standalone: true,
   imports: [CommonModule, BookComponent],
   template: `
-    <h1>Liste des choses à faire :</h1>
-
-    <a href="#" role="button"
-    [class.secondary]="!completedFilter && !allList" 
-    (click)="onClickBook()"> A faire</a>
-    <a href="#" role="button" 
-    [class.secondary]="completedFilter && !allList"
-    (click)="onClickBookCompleted()"> Terminée</a>
-    <a href="#" role="button" 
-    [class.secondary]="allList"
-    (click)="onClickBookAll()"> Tout afficher</a>
-
     <div class="booklist">
       <ng-container *ngFor="let book of bookList"> 
-        <book [value]="book"/>
+        <book [value]="book" [categoryInfo]="categoryInfo"/>
       </ng-container>
     </div>
   `,
@@ -33,28 +23,27 @@ import { Book } from '../../models/book';
 
 export class BookList_Component {
   bookList: Book[] = [];
+  categoryInfo: { id: number, label: string }[] = [];
 
-  completedFilter: boolean = false
+  constructor(private bookService: BookService, private categoryService: CategoryService) {}
 
-  allList: boolean = false
-
-  constructor(private bookService: BookService) {}
+  
 
   ngOnInit(): void {
     this.bookService.getBookList().subscribe(books => this.bookList = books)
-    this.bookService.getBookById(5).subscribe(book => console.log(book))
+    this.loadCategoryInfo();
   }
 
-  onClickBook(): void {
-    this.completedFilter = false;
-    this.allList = false;
-  }
-  onClickBookCompleted(): void {
-    this.completedFilter = true;
-    this.allList = false;
-  }
-  onClickBookAll(): void {
-    this.allList = true;
+  loadCategoryInfo(): void {
+    this.categoryService.getCategories().subscribe(
+      (categories: Category[]) => {    
+        this.categoryInfo = categories.map(category => ({ id: category.id, label: category.label }));
+        console.log(this.categoryInfo)
+      },
+      (error) => {
+        console.error('Erreur lors du chargement des catégories:', error);
+      }
+    );
   }
 
 }
