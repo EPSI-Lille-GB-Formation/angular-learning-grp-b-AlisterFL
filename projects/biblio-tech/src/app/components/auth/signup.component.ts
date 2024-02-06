@@ -68,7 +68,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./auth-style.css']
 })
 export class SignUpComponent {
-  user: User = new User(0, '', '', '', '', false); 
+  user: User = new User('', '', '', '', '', false); 
 
   constructor(private userService: UserService, private router: Router) {}
 

@@ -1,7 +1,23 @@
 /* You can add global styles to this file, and also import other style files */
 
+
 body {
-    max-width: 1400px;
     margin: auto !important;
-    background-color: #eaeaea;
+    background-color: #f6f6f6;
 }
+
+.body{
+    max-width: 1400px;
+    min-height: 100vh;
+    margin: auto !important;
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+.cdk-overlay-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }

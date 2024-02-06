@@ -4,6 +4,7 @@ export class Book {
     }
     constructor(
         public id: number,
+        public userId: string,
         public title: string,
         public resume: string,
         public image: string,

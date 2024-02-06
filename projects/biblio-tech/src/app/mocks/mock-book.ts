@@ -3,6 +3,7 @@ import { Book } from "../models/book";
 export const BOOKS: Book [] = [
   {
     id: 1,
+    userId: '000111',
     title: 'Peindre le mur',
     resume: 'Peindre le mur de la cuisine en blanc cassé Peindre le mur de la cuisine en blanc cassé Peindre le mur de la cuisine en blanc cassé Peindre le mur de la cuisine en blanc cassé ',
     image: '/assets/covers/Teletubbies.webp',
@@ -11,6 +12,7 @@ export const BOOKS: Book [] = [
   },
   {
     id: 2,
+    userId: '000111',
     title: 'Acheter du lait',
     resume: 'Acheter une brique de lait demi-écrémé.',
     image: '/assets/covers/The_100.jpg',
@@ -19,6 +21,7 @@ export const BOOKS: Book [] = [
   },
   {
     id: 3,
+    userId: '000111',
     title: 'Rendre le livre à la bibliothèquef fdgdfgg fgdg df',
     resume: 'Rendre le livre emprunté la semaine dernière à la bibliothèque municipale.',
     image: '/assets/covers/codelyoko.jpeg',
@@ -27,6 +30,7 @@ export const BOOKS: Book [] = [
   },
   {
     id: 4,
+    userId: '000111',
     title: 'Peindre le mur',
     resume: 'Peindre le mur de la cuisine en blanc cassé',
     image: '/assets/covers/Teletubbies.webp',
@@ -35,6 +39,7 @@ export const BOOKS: Book [] = [
   },
   {
     id: 5,
+    userId: '000111',
     title: 'Acheter du lait',
     resume: 'Acheter une brique de lait demi-écrémé.',
     image: '/assets/covers/avatarldmdl.jpeg',
@@ -43,6 +48,7 @@ export const BOOKS: Book [] = [
   },
   {
     id: 6,
+    userId: '000111',
     title: 'Rendre le livre à la bibliothèque',
     resume: 'Rendre le livre emprunté la semaine dernière à la bibliothèque municipale.',
     image: '/assets/covers/codelyoko.jpeg',

@@ -19,3 +19,15 @@ img {
 }
 
 
+.wrapper-crud{
+  width: 100%;
+  display: flex;
+    justify-content: flex-end;
+}
+.crud-button{
+  display: flex;
+  max-width: 500px;
+  gap: 15px;
+}
+
+

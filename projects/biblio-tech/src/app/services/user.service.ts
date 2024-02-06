@@ -44,6 +44,7 @@ export class UserService {
             this.authToken = uuidv4();
             localStorage.setItem('authToken', this.authToken);
             localStorage.setItem('userFirstName', user.firstname);
+            localStorage.setItem('userId', user.id);
             this.isAuthenticated = true;
 
             return user;

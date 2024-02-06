@@ -64,7 +64,7 @@ import { Belong } from '../../../models/belong';
 export class NewBookComponent implements OnInit{
 
   bookList: Book[] = [];
-  book: Book = new Book(0, '', '', '',new Date(),new Date());
+  book: Book = new Book(0,'', '', '', '',new Date(),new Date());
   categories: Category[] = [];
   selectedCategories: number[] = [];
 
@@ -81,7 +81,15 @@ export class NewBookComponent implements OnInit{
 
   onSubmit(): void {
 
-
+      // Récupérer le userId depuis le localStorage
+  const userId = localStorage.getItem('userId');
+  
+  // Assurez-vous que userId n'est pas null ou undefined
+    if (!userId) {
+      console.error('userId non trouvé dans le localStorage');
+      return;
+    }
+    this.book.userId = userId;
     this.book.createdAt = new Date();
     this.book.updatedAt = new Date();
 

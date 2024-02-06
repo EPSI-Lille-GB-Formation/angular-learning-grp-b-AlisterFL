@@ -2,7 +2,7 @@ import { User } from "../models/user";
 
 export const USERS: User [] = [
   {
-    id: 0,
+    id: '000111',
     firstname: 'Alister',
     lastname: 'Flandrinck',
     mail: 'alisterfl@gmail.com',
@@ -10,7 +10,7 @@ export const USERS: User [] = [
     role: true
   },
   {
-    id: 1,
+    id: '111222',
     firstname: 'Axelle',
     lastname: 'Flandrinck',
     mail: 'axellefl@gmail.com',

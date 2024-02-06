@@ -1,13 +1,14 @@
 export class Page {
     constructor(
         public id: number,
-        public book_id: number,
+        public bookId: number,
         public title: string,
         public content: string,
-        public updateAt: Date,
+        public updatedAt: Date,
         public createdAt: Date,
+        public isEditing: boolean = false,
     ){
         this.createdAt = new Date();
-        this.updateAt = new Date();
+        this.updatedAt = new Date();
       }
 }
