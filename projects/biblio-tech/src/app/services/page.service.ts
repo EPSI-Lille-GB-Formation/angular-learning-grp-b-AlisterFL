@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, map, switchMap } from 'rxjs';
 import { Page } from '../models/page';
 
 @Injectable({
@@ -20,7 +20,12 @@ export class PageService {
   }
 
   addPage(page: Page): Observable<Page> {
-    return this.http.post<Page>(this.pagesUrl, page);
+    return this.getHighestPageId().pipe(
+      switchMap(highestId => {
+        page.id = highestId + 1; // Incrémenter l'ID
+        return this.http.post<Page>(this.pagesUrl, page);
+      })
+    );
   }
 
   updatePage(page: Page): Observable<Page> {
@@ -34,5 +39,14 @@ export class PageService {
   getPagesByBookId(bookId: number): Observable<Page[]> {
     const url = `${this.pagesUrl}?bookId=${bookId}`;
     return this.http.get<Page[]>(url);
+  }
+
+  private getHighestPageId(): Observable<number> {
+    return this.getPages().pipe(
+      map(pages => {
+        const highestId = Math.max(...pages.map(page => page.id), 0);
+        return highestId;
+      })
+    );
   }
 }

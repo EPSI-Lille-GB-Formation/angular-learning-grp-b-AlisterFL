@@ -1,5 +1,3 @@
-// bookById.component.ts
-
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BookService } from '../../../services/book.service';
@@ -10,6 +8,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../../confirmDialog/confirm-dialog.component';
+import { Router } from '@angular/router';
+import { AddPageComponent } from '../new-page/addPage.component';
 
 @Component({
   selector: 'app-book-by-id',
@@ -19,13 +19,17 @@ import { ConfirmDialogComponent } from '../../confirmDialog/confirm-dialog.compo
     <main class="container">
         <article class="grid">
             <div class="book-details">
-            <div class="image-container">
-                <img [src]="book?.image" alt="{{ book?.title }}" />
-            </div>
-            <div class="info-container">
-                <h1>{{ book?.title }}</h1>
-                <p>{{ book?.resume }}</p>
-            </div>
+              <div class="image-container">
+                  <img [src]="book?.image" alt="{{ book?.title }}" />
+              </div>
+              <div class="info-container">
+                  <h1>{{ book?.title }}</h1>
+                  <p>{{ book?.resume }}</p>
+                  <div class="crud-button">
+                    <button (click)="openAddPageDialog()">Ajouter une page</button>
+                    <button class="delete-button" (click)="deleteBook()">Supprimer le livre</button>
+                  </div>
+              </div>
             </div>
         </article>
 
@@ -40,7 +44,7 @@ import { ConfirmDialogComponent } from '../../confirmDialog/confirm-dialog.compo
                 <div class="crud-button">
                   <button *ngIf="!page.isEditing" (click)="toggleEdit(page)">Modifier</button>
                   <button *ngIf="page.isEditing" (click)="saveEdit(page)">Enregistrer</button>
-                  <button (click)="deletePage(page)">Supprimer</button>
+                  <button class="delete-button" (click)="deletePage(page)">Supprimer</button>
                 </div>
               </div>
             </li>
@@ -59,6 +63,7 @@ export class BookById_Component implements OnInit {
   editedContent: string = '';
 
   constructor(
+    private router: Router,
     private route: ActivatedRoute,
     private bookService: BookService,
     private pageService: PageService,
@@ -121,6 +126,30 @@ export class BookById_Component implements OnInit {
     );
   }
 
+  openAddPageDialog(): void {
+    const dialogRef = this.dialog.open(AddPageComponent, {
+      width: '500px',
+      disableClose: true, // Empêcher la fermeture de la fenêtre modale en dehors du bouton "Annuler"
+      data: { bookId: this.book?.id }
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      // Rafraîchir la liste des pages ou effectuer d'autres actions si nécessaire
+      if (result) {
+        this.pageService.getPagesByBookId(this.book?.id || 0).subscribe(
+          (pages) => {
+            this.pages = pages;
+            console.log('Pages mises à jour:', pages);
+          },
+          (error) => {
+            console.error('Erreur lors de la récupération des pages:', error);
+          }
+        );
+      }
+    });
+  }
+  
+
   deletePage(page: Page): void {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       data: 'Êtes-vous sûr de vouloir supprimer cette page ?'
@@ -140,6 +169,29 @@ export class BookById_Component implements OnInit {
       }
     });
 
+  }
+
+  deleteBook(): void {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: 'Êtes-vous sûr de vouloir supprimer ce livre ?'
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) { // Si l'utilisateur confirme, supprimer le livre
+        this.route.paramMap.subscribe(params => {
+          const bookId = Number(params.get('id'));
+          this.bookService.deleteBook(bookId).subscribe(
+            () => {
+              console.log('livre supprimée avec succès');
+              this.router.navigate(['/']);
+            },
+            error => {
+              console.error('Erreur lors de la suppression de lu livre:', error);
+            }
+          );
+        })
+      }
+    });
   }
 
 }

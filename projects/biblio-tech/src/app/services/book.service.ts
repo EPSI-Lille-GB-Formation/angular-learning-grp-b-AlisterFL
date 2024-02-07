@@ -68,4 +68,17 @@ export class BookService {
     );
   }
 
+  deleteBook(bookId: number): Observable<void> {
+    const url = `${this.booksUrl}/${bookId}`;
+    return this.http.delete<void>(url).pipe(
+      tap(() => {
+        console.log(`Livre avec ID ${bookId} supprimé avec succès`);
+      }),
+      catchError(error => {
+        console.error(`Erreur lors de la suppression du livre avec ID ${bookId}:`, error);
+        return of();
+      })
+    );
+  }
+
 }
