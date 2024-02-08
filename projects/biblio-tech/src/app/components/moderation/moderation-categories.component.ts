@@ -31,7 +31,7 @@ import { ConfirmDialogComponent } from '../Dialog/confirmDialog/confirm-dialog.c
         [(ngModel)]="newCategoryLabel"
         placeholder="Nouvelle catégorie"
       />
-      <button class="contrast" (click)="addCategory()">Ajouter</button>
+      <button class="save-button" (click)="addCategory()">Ajouter</button>
 
       <!-- Affichage des catégories existantes -->
       <form #categoryForm="ngForm">
@@ -53,8 +53,8 @@ import { ConfirmDialogComponent } from '../Dialog/confirmDialog/confirm-dialog.c
           </div>
 
           <div class="category-actions">
-            <button class="contrast"(click)="updateCategory(category)">Enregistrer</button>
-            <button class="secondary"(click)="deleteCategory(category.id)">Supprimer</button>
+            <button class="save-button"(click)="updateCategory(category)">Enregistrer</button>
+            <button class="delete-button" (click)="deleteCategory(category.id)">Supprimer</button>
           </div>
         </div>
       </form>

@@ -85,3 +85,9 @@
     display: flex;
     align-items: center;
   }
+
+
+.delete-button {
+    color: white;
+    background-color: rgb(206, 19, 19);
+  }

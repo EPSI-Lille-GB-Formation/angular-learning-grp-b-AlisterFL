@@ -9,6 +9,8 @@ import { Category } from '../../models/category';
 import { Belong } from '../../models/belong';
 import { BelongService } from '../../services/belong.service';
 import { FormsModule } from '@angular/forms';
+import { UserService } from '../../services/user.service';
+import { User } from '../../models/user';
 
 @Component({
   selector: 'book-list',
@@ -37,7 +39,7 @@ export class BookList_Component {
   categoryInfo: { id: number, label: string }[] = [];
   selectedCategoryId: number | null = null;
 
-  constructor(private bookService: BookService, private categoryService: CategoryService, private belongService: BelongService) {}
+  constructor(private userService: UserService, private bookService: BookService, private categoryService: CategoryService, private belongService: BelongService) {}
 
   
 

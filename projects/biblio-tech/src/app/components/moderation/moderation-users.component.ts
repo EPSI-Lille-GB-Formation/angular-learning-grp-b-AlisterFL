@@ -36,9 +36,9 @@ import { SuccessDialogComponent } from '../Dialog/success-dialog/success-dialog.
           <div class="info-item"><strong>Rôle :</strong> {{ user.role }}</div>
         </div>
         <div class="user-actions">
-          <button class="secondary" (click)="deleteUser(user.id)">Supprimer</button>
-          <button class="contrast" (click)="toggleUserRole(user)">Changer de rôle</button>
-          <button class="contrast" (click)="updateUser(user)">Enregistrer</button>
+          <button class="delete-button" (click)="deleteUser(user.id)">Supprimer</button>
+          <button class="save-button" (click)="toggleUserRole(user)">Changer de rôle</button>
+          <button class="save-button" (click)="updateUser(user)">Enregistrer</button>
         </div>
       </div>
     </div>

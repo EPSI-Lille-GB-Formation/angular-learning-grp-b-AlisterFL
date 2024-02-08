@@ -52,9 +52,10 @@ import { Router } from '@angular/router';
             <label>
               Rôle:
               <input
-                type="checkbox"
-                name="adminRole"
-                [(ngModel)]="user.role"
+                  type="checkbox"
+                  name="adminRole"
+                  [(ngModel)]="user.role"
+                  (change)="onRoleChange($event)"
               />
               Admin
             </label>
@@ -74,6 +75,14 @@ export class SignUpComponent {
 
 
   onSubmit(): void {
+
+    // Vérification de l'e-mail avec une expression régulière
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(this.user.mail)) {
+        alert("L'adresse e-mail n'est pas valide.");
+        return;
+    }
+
 
     // Vérifiez que le mot de passe est valide
     const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;;
@@ -101,5 +110,9 @@ export class SignUpComponent {
     )
 
   }
+
+  onRoleChange(event: any): void {
+    this.user.role = event.target?.checked ? 'admin' : 'user';
+}
 
 }
