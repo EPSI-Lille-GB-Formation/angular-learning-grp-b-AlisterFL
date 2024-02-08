@@ -67,4 +67,28 @@ export class UserService {
         })
       );
   }
+
+  deleteUser(userId: string): Observable<void> {
+    const url = `${this.apiUrl}/${userId}`;
+    return this.http.delete<void>(url).pipe(
+      catchError((error) => {
+        throw new Error('Error deleting user: ' + error);
+      })
+    );
+  }
+
+  updateUser(userId: string, updatedUser: User): Observable<User> {
+    const url = `${this.apiUrl}/${userId}`;
+    return this.http.put<User>(url, updatedUser).pipe(
+      catchError((error) => {
+        throw new Error('Error updating user: ' + error);
+      })
+    );
+  }
+
+  getUserByID(userId: string): Observable<User> {
+    const url = `${this.apiUrl}/${userId}`;
+    return this.http.get<User>(url);
+  }
+
 }

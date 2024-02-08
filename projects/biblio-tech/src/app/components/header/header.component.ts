@@ -20,7 +20,8 @@ import { CommonModule } from '@angular/common';
           <details role="list" dir="rtl">
             <summary aria-haspopup="listbox" role="link">{{ userFirstName ? userFirstName : 'Profil' }}</summary>
             <ul role="listbox">
-              <li><a>Profil</a></li>
+              <li><a (click)="navigateToProfile()">Profil</a></li>
+              <li><a (click)="navigateToModeration()">Modération</a></li>
               <li><a (click)="logout()">Se déconnecter</a></li>
             </ul>
           </details>
@@ -50,6 +51,17 @@ export class HeaderComponent implements OnInit{
 
   navigateToLogin() {
     this.router.navigate(['/login']);
+  }
+
+  navigateToModeration() {
+    this.router.navigate(['/moderation/users']);
+  }
+
+  navigateToProfile() {
+    const userId = localStorage.getItem('userId');
+    if (userId) {
+      this.router.navigate(['/profile', userId]);
+    }
   }
 
   logout(): void {

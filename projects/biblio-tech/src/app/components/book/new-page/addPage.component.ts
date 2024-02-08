@@ -53,9 +53,7 @@ export class AddPageComponent {
     });
   }
 
-  // Fonction pour soumettre le formulaire
   onSubmit(): void {
-    // Vérifier si le formulaire est valide
     // Vérifier si le formulaire est valide
     if (this.addPageForm.valid) {
         const newPageData = {

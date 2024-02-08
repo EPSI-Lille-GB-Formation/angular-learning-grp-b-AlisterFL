@@ -7,7 +7,7 @@ import { Page } from '../../../models/page';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { ConfirmDialogComponent } from '../../confirmDialog/confirm-dialog.component';
+import { ConfirmDialogComponent } from '../../Dialog/confirmDialog/confirm-dialog.component';
 import { Router } from '@angular/router';
 import { AddPageComponent } from '../new-page/addPage.component';
 

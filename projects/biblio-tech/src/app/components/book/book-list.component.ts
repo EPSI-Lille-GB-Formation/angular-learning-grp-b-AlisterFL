@@ -16,10 +16,10 @@ import { FormsModule } from '@angular/forms';
   imports: [CommonModule, BookComponent, FormsModule],
   template: `
     <div class="filter-controls">
-      <select [(ngModel)]="selectedCategoryId" (change)="filterBooks()">
-        <option value="">Toutes les catégories</option>
-        <option *ngFor="let category of categoryInfo" [ngValue]="category.id">{{ category.label }}</option>
-      </select>
+      <button *ngFor="let category of categoryInfo" (click)="applyCategoryFilter(category.id)">
+        {{ category.label }}
+      </button>
+      <button (click)="clearCategoryFilter()">Toutes les catégories</button>
     </div>
     <div class="booklist">
       <ng-container *ngFor="let book of filteredBookList"> 
@@ -82,18 +82,26 @@ export class BookList_Component {
       
     if (this.selectedCategoryId !== null) {
       this.filteredBookList = this.bookList.filter(book => {
-        console.log('Current Book:', book);
         // Vérifie si le livre appartient à la catégorie sélectionnée
         return this.belongList.some(belong => {
           return belong.bookId === book.id && belong.categoryId === this.selectedCategoryId;
         });
       });
     } else {
-      // Si aucune catégorie n'est sélectionnée, afficher tous les livres
       this.filteredBookList = this.bookList;
     }
   
     console.log('Filtered Book List:', this.filteredBookList);
+  }
+
+  applyCategoryFilter(categoryId: number): void {
+    this.selectedCategoryId = categoryId;
+    this.filterBooks();
+  }
+  
+  clearCategoryFilter(): void {
+    this.selectedCategoryId = null;
+    this.filteredBookList = this.bookList; 
   }
   
 

@@ -1,0 +1,91 @@
+.container-button{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    gap: 30px;
+}
+
+.container-button button{
+    width: auto;
+    padding: 15px 30px;
+}
+
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .container h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .container div {
+    margin-bottom: 20px;
+  }
+  
+  .container div p {
+    margin-bottom: 10px;
+  }
+  
+  .container div input[type="text"] {
+    width: 150px;
+    padding: 6px;
+    font-size: 16px;
+    height: 40px;
+    margin-bottom: 2px;
+  }
+  
+  .container div button {
+    padding: 8px 16px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .container div button:hover {
+    background-color: #2d7acc;
+  }
+  
+
+  .user-card, .category-card {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .user-info, .category-info {
+    flex-grow: 1;
+  }
+  
+  .user-actions, .category-actions {
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .user-actions button, .category-actions button {
+    margin-top: 5px;
+  }
+
+  .user-info {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .info-item strong {
+    width: 60px; 
+    display: inline-block; 
+  }
+  
+  .info-item {
+    display: flex;
+    align-items: center;
+  }

@@ -91,3 +91,15 @@ body, a {
     justify-content: space-around;
 
 }
+
+.filter-controls {
+  display: flex; 
+  justify-content: center; 
+}
+
+.filter-controls button {
+  margin: 10px 5px;
+  font-size: 14px;
+  width: auto;
+  padding: 2px 16px;
+}

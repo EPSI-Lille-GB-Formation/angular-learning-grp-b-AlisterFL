@@ -7,7 +7,7 @@ export const USERS: User [] = [
     lastname: 'Flandrinck',
     mail: 'alisterfl@gmail.com',
     password: 'azerty',
-    role: true
+    role: 'user'
   },
   {
     id: '111222',
@@ -15,7 +15,7 @@ export const USERS: User [] = [
     lastname: 'Flandrinck',
     mail: 'axellefl@gmail.com',
     password: 'azerty',
-    role: false
+    role: 'user'
   }
   
 ];
