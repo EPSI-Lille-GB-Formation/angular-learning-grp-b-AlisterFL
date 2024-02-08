@@ -16,10 +16,10 @@ import { FormsModule } from '@angular/forms';
   imports: [CommonModule, BookComponent, FormsModule],
   template: `
     <div class="filter-controls">
-      <button *ngFor="let category of categoryInfo" (click)="applyCategoryFilter(category.id)">
+      <button class="secondary" *ngFor="let category of categoryInfo" (click)="applyCategoryFilter(category.id)">
         {{ category.label }}
       </button>
-      <button (click)="clearCategoryFilter()">Toutes les catégories</button>
+      <button class="secondary" (click)="clearCategoryFilter()">Toutes les catégories</button>
     </div>
     <div class="booklist">
       <ng-container *ngFor="let book of filteredBookList"> 

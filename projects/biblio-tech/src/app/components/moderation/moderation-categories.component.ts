@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { SuccessDialogComponent } from '../Dialog/success-dialog/success-dialog.component';
 import { Category } from '../../models/category';
 import { CategoryService } from '../../services/category.service';
+import { ConfirmDialogComponent } from '../Dialog/confirmDialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-moderation-categories',
@@ -13,10 +14,10 @@ import { CategoryService } from '../../services/category.service';
   imports: [RouterModule, CommonModule, FormsModule],
   template: `
     <div class="container-button">
-      <button routerLink="/moderation/users">
+      <button class="contrast" routerLink="/moderation/users">
         Modération des utilisateurs
       </button>
-      <button routerLink="/moderation/categories">
+      <button class="contrast" routerLink="/moderation/categories">
         Modération des catégories
       </button>
     </div>
@@ -30,7 +31,7 @@ import { CategoryService } from '../../services/category.service';
         [(ngModel)]="newCategoryLabel"
         placeholder="Nouvelle catégorie"
       />
-      <button (click)="addCategory()">Ajouter</button>
+      <button class="contrast" (click)="addCategory()">Ajouter</button>
 
       <!-- Affichage des catégories existantes -->
       <form #categoryForm="ngForm">
@@ -52,8 +53,8 @@ import { CategoryService } from '../../services/category.service';
           </div>
 
           <div class="category-actions">
-            <button (click)="updateCategory(category)">Enregistrer</button>
-            <button (click)="deleteCategory(category.id)">Supprimer</button>
+            <button class="contrast"(click)="updateCategory(category)">Enregistrer</button>
+            <button class="secondary"(click)="deleteCategory(category.id)">Supprimer</button>
           </div>
         </div>
       </form>
@@ -92,17 +93,25 @@ export class CategoryModerationComponent implements OnInit {
   }
 
   deleteCategory(categoryId: number): void {
-    this.categoryService.deleteCategory(categoryId).subscribe(
-      () => {
-        this.categories = this.categories.filter(
-          (cat) => cat.id !== categoryId
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: 'Êtes-vous sûr de vouloir supprimer cette catégorie ?'
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) { // Si l'utilisateur confirme, supprimer la catégorie
+        this.categoryService.deleteCategory(categoryId).subscribe(
+          () => {
+            this.categories = this.categories.filter(
+              (cat) => cat.id !== categoryId
+            );
+            console.log('Category deleted successfully.');
+          },
+          (error) => {
+            console.error('Error deleting category:', error);
+          }
         );
-        console.log('Category deleted successfully.');
-      },
-      (error) => {
-        console.error('Error deleting category:', error);
       }
-    );
+    });
   }
 
   addCategory(): void {

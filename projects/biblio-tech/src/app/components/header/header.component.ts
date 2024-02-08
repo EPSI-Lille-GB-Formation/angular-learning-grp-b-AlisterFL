@@ -10,15 +10,15 @@ import { CommonModule } from '@angular/common';
   template: `
     <nav>
       <ul>
-      <li><a [routerLink]="['/']"><strong>Biblio'Tech</strong></a></li>
+      <li><a class="contrast"[routerLink]="['/']"><strong>Biblio'Tech</strong></a></li>
       </ul>
       <ul>
-      <li><a class="write-book" (click)="redirectToNewBook()">Écrire un livre</a></li>
-      <li><a *ngIf="!isAuthenticated()" (click)="navigateToSignup()">S'inscrire</a></li>
+        <li><button class="contrast" (click)="redirectToNewBook()">Ecrire un livre</button></li>
+        <li><a *ngIf="!isAuthenticated()" (click)="navigateToSignup()">S'inscrire</a></li>
         <li><a *ngIf="!isAuthenticated()" (click)="navigateToLogin()">Se connecter</a></li>
         <li *ngIf="isAuthenticated()">
           <details role="list" dir="rtl">
-            <summary aria-haspopup="listbox" role="link">{{ userFirstName ? userFirstName : 'Profil' }}</summary>
+            <summary class="contrast" aria-haspopup="listbox" role="link">{{ userFirstName ? userFirstName : 'Profil' }}</summary>
             <ul role="listbox">
               <li><a (click)="navigateToProfile()">Profil</a></li>
               <li><a (click)="navigateToModeration()">Modération</a></li>

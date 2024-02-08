@@ -8,7 +8,7 @@ import { MatDialogModule } from '@angular/material/dialog';
   template: `
     <h2>Succès</h2>
     <p>Les informations ont été mises à jour avec succès.</p>
-    <button mat-button mat-dialog-close>OK</button>
+    <button class="contrast" mat-button mat-dialog-close>OK</button>
   `,
   styleUrl: './success-dialog.component.css'
 })

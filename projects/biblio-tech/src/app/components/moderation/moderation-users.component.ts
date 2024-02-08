@@ -13,10 +13,10 @@ import { SuccessDialogComponent } from '../Dialog/success-dialog/success-dialog.
   imports: [RouterModule, CommonModule, FormsModule],
   template: `
     <div class="container-button">
-      <button routerLink="/moderation/users">
+      <button class="contrast" routerLink="/moderation/users">
         Modération des utilisateurs
       </button>
-      <button routerLink="/moderation/categories">
+      <button class="contrast" routerLink="/moderation/categories">
         Modération des catégories
       </button>
     </div>
@@ -36,9 +36,9 @@ import { SuccessDialogComponent } from '../Dialog/success-dialog/success-dialog.
           <div class="info-item"><strong>Rôle :</strong> {{ user.role }}</div>
         </div>
         <div class="user-actions">
-          <button (click)="deleteUser(user.id)">Supprimer</button>
-          <button (click)="toggleUserRole(user)">Changer de rôle</button>
-          <button (click)="updateUser(user)">Enregistrer</button>
+          <button class="secondary" (click)="deleteUser(user.id)">Supprimer</button>
+          <button class="contrast" (click)="toggleUserRole(user)">Changer de rôle</button>
+          <button class="contrast" (click)="updateUser(user)">Enregistrer</button>
         </div>
       </div>
     </div>

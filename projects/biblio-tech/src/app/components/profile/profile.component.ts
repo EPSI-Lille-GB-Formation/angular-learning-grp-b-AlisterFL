@@ -26,7 +26,7 @@ import { SuccessDialogComponent } from '../Dialog/success-dialog/success-dialog.
                 <label for="email">Email:</label>
                 <input type="email" id="email" [(ngModel)]="user.mail" name="email">
 
-                <button type="submit">Mettre à jour</button>
+                <button class="contrast" type="submit">Mettre à jour</button>
             </form>
             </div>
         </div>

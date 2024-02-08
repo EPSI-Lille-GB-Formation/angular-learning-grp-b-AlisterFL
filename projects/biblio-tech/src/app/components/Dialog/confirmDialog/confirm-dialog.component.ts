@@ -12,7 +12,7 @@ import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/materia
         {{ data }}
       </mat-dialog-content>
       <mat-dialog-actions >
-        <button mat-button (click)="onNoClick()">Annuler</button>
+        <button mat-button class="contast" (click)="onNoClick()">Annuler</button>
         <button mat-button class="delete-button" (click)="onYesClick()">Supprimer</button>
       </mat-dialog-actions>
     </div>
