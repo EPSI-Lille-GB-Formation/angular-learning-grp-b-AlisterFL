@@ -55,15 +55,9 @@ export class BookComponent implements OnInit {
           // Mapping des belongs aux libellés correspondants
           const categoryIds = belongs.map((belong) => belong.categoryId);
           const bookCategories = this.getCategoryLabels(categoryIds);
-          console.log("categoryIds", categoryIds)
 
           // Extraire les libellés
           this.bookCategoryLabels = bookCategories.map((category) => category.label);
-
-          console.log(
-            `Category labels for book ${this.book?.id}:`,
-            this.bookCategoryLabels
-          );
         },
         (error: any) => {
           console.error(

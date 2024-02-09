@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { User } from '../models/user';
 import { HttpClient } from '@angular/common/http';
-import { Observable, catchError, tap, map} from 'rxjs';
+import { Observable, catchError, tap, map, of} from 'rxjs';
 import { v4 as uuidv4 } from 'uuid';
 import * as bcrypt from 'bcryptjs';
 
@@ -11,14 +11,11 @@ import * as bcrypt from 'bcryptjs';
 export class UserService {
 
   apiUrl: string = 'api/users';
-  private isAuthenticated: boolean = false;
   private authToken: string | null = null;
 
   constructor(private http: HttpClient) {
     // Récupérer le token du local storage lors de l'initialisation du service
     this.authToken = localStorage.getItem('authToken');
-    // Vérifier si un token est présent pour marquer l'utilisateur comme authentifié
-    this.isAuthenticated = !!this.authToken;
   }
 
 
@@ -26,6 +23,11 @@ export class UserService {
   getUsers(): Observable<User[]> {
     const users = this.http.get<User[]>(this.apiUrl);
     return users;
+  }
+
+  isAuthenticated(): boolean {
+    // Vérifie si l'authToken est présent dans le localStorage
+    return localStorage.getItem('authToken') !== null;
   }
 
 
@@ -40,12 +42,11 @@ export class UserService {
           const isPasswordValid = bcrypt.compareSync(password, user.password);
 
           if (isPasswordValid) {
-            // Simule la génération d'un token puis autorise l'utilisateur à se connecter
+            // Simulation d'un token d'authentification
             this.authToken = uuidv4();
             localStorage.setItem('authToken', this.authToken);
             localStorage.setItem('userFirstName', user.firstname);
             localStorage.setItem('userId', user.id);
-            this.isAuthenticated = true;
 
             return user;
           }
@@ -89,6 +90,28 @@ export class UserService {
   getUserByID(userId: string): Observable<User> {
     const url = `${this.apiUrl}/${userId}`;
     return this.http.get<User>(url);
+  }
+
+  isAdmin(): Observable<boolean> {
+    const userId = localStorage.getItem('userId');
+    if (!userId) {
+        // Si l'ID utilisateur n'est pas disponible dans le localStorage
+        console.error('L\'ID utilisateur n\'est pas disponible dans le localStorage.');
+        return of(false);
+    } else {
+        return this.getUserByID(userId).pipe(
+            map((user: User) => {
+                const isAdmin = user.role === 'admin';
+                if (isAdmin) {
+                }
+                return isAdmin;
+            }),
+            catchError((error) => {
+                console.error('Erreur lors de la récupération des informations de l\'utilisateur:', error);
+                return of(false);
+            })
+        );
+    }
   }
 
 }

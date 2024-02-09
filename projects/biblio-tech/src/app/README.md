@@ -1,14 +1,14 @@
 Choses a faire:
 Les livres
-🅾️ Créer, modifier, supprimer, trier et consulter (CRUD)
+🅾✅ Créer, modifier, supprimer, trier et consulter (CRUD)
 🅾️ Seul l’auteur d’un livre doit pouvoir modifier et supprimer un livre
-🅾️ Un utilisateur administrateur doit pouvoir gérer l’ensemble des livres
+✅ Un utilisateur administrateur doit pouvoir gérer l’ensemble des livres
 🅾️ Seul un utilisateur authentifié peut consulter un livre
 ✅ Tout le monde doit pouvoir afficher la liste des livres
 🅾️ La date de modification doit automatiquement être mise à jour
 Les pages
 🅾️ Un auteur doit pouvoir créer, modifier, supprimer et consulter une page
-🅾️ Un livre est constitué d’une ou plusieurs pages
+✅ Un livre est constitué d’une ou plusieurs pages
 🅾️ Un administrateur peut gérer l’ensemble des pages d’un livre
 Les catégories
 ✅ Un auteur peut sélectionner plusieurs catégories pour son livre

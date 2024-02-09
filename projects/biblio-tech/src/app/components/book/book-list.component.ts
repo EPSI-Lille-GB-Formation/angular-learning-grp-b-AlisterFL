@@ -53,7 +53,6 @@ export class BookList_Component {
     this.belongService.getBelongs().subscribe(
       (belongs: Belong[]) => {
         this.belongList = belongs;
-        console.log("belong : ", this.belongList);
       },
       (error) => {
         console.error('Erreur lors du chargement des belongs:', error);
@@ -65,7 +64,6 @@ export class BookList_Component {
     this.categoryService.getCategories().subscribe(
       (categories: Category[]) => {    
         this.categoryInfo = categories.map(category => ({ id: category.id, label: category.label }));
-        console.log("categoryInfo", this.categoryInfo)
       },
       (error) => {
         console.error('Erreur lors du chargement des catégories:', error);
@@ -93,7 +91,6 @@ export class BookList_Component {
       this.filteredBookList = this.bookList;
     }
   
-    console.log('Filtered Book List:', this.filteredBookList);
   }
 
   applyCategoryFilter(categoryId: number): void {

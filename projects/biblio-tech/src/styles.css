@@ -25,3 +25,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .mat-mdc-dialog-surface{
     padding: 34px;
 }
+
+ul, ol {
+    list-style: none;
+}
+
+ul li{
+    list-style: none;
+}

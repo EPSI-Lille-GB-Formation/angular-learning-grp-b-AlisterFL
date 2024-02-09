@@ -10,6 +10,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../../Dialog/confirmDialog/confirm-dialog.component';
 import { Router } from '@angular/router';
 import { AddPageComponent } from '../new-page/addPage.component';
+import { UserService } from '../../../services/user.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-book-by-id',
@@ -26,8 +28,8 @@ import { AddPageComponent } from '../new-page/addPage.component';
                   <h1>{{ book?.title }}</h1>
                   <p>{{ book?.resume }}</p>
                   <div class="crud-button">
-                    <button (click)="openAddPageDialog()">Ajouter une page</button>
-                    <button class="delete-button" (click)="deleteBook()">Supprimer le livre</button>
+                    <button *ngIf="(isAdmin | async) || isAuthor" (click)="openAddPageDialog()">Ajouter une page</button>
+                    <button class="delete-button" *ngIf="(isAdmin | async) || isAuthor" (click)="deleteBook()">Supprimer le livre</button>
                   </div>
               </div>
             </div>
@@ -42,9 +44,9 @@ import { AddPageComponent } from '../new-page/addPage.component';
               <p *ngIf="!page.isEditing">{{ page.content }}</p>
               <div class="wrapper-crud">
                 <div class="crud-button">
-                  <button *ngIf="!page.isEditing" (click)="toggleEdit(page)">Modifier</button>
-                  <button *ngIf="page.isEditing" (click)="saveEdit(page)">Enregistrer</button>
-                  <button class="delete-button" (click)="deletePage(page)">Supprimer</button>
+                  <button *ngIf="(!page.isEditing && (isAdmin | async)) || isAuthor" (click)="toggleEdit(page)">Modifier</button>
+                  <button *ngIf="(page.isEditing && (isAdmin | async)) || isAuthor" (click)="saveEdit(page)">Enregistrer</button>
+                  <button *ngIf="(isAdmin | async) || isAuthor" class="delete-button" (click)="deletePage(page)">Supprimer</button>
                 </div>
               </div>
             </li>
@@ -61,16 +63,25 @@ export class BookById_Component implements OnInit {
   book: Book | undefined;
   pages: Page[] = [];
   editedContent: string = '';
+  userId: string | null = null;
+  isAdmin!: Observable<boolean>;
+  isAuthor = false;
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private bookService: BookService,
     private pageService: PageService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private userService: UserService
   ) {}
 
   ngOnInit(): void {
+
+    this.userId = localStorage.getItem('userId');
+    this.isAdmin = this.userService.isAdmin();
+
+
     this.pageService.getPages().subscribe(
       (page) => {
         console.log(page)
@@ -84,6 +95,11 @@ export class BookById_Component implements OnInit {
       this.bookService.getBookById(bookId).subscribe(
         (book) => {
           this.book = book;
+
+          // Vérifier si l'utilisateur est l'auteur du livre
+          if (this.userId && book.userId === this.userId) {
+            this.isAuthor = true;
+          }
 
           // Récupérer les pages du livre
           this.pageService.getPagesByBookId(bookId).subscribe(

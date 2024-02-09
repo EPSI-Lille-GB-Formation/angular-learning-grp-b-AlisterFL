@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, RouterModule } from '@angular/router';
+import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { UserService } from '../../services/user.service';
 import { User } from '../../models/user';
+import { Observable } from 'rxjs';
 
 
 @Component({
@@ -36,32 +37,27 @@ import { User } from '../../models/user';
 export class HeaderComponent implements OnInit{
 
   userFirstName: string | null = '';
-  isAdmin = false;
+  isAdmin: boolean | undefined;
+
+
+
 
   constructor(private router: Router, private userService: UserService) {}
 
 
   ngOnInit(): void {
-
-        // Verification admin
-        const userId = localStorage.getItem('userId');
-        if (userId) {
-          console.log(userId)
-          this.userService.getUserByID(userId).subscribe(
-            (user: User) => {
-              this.isAdmin = user.role === 'admin';
-            },
-            (error) => {
-              console.error('Erreur lors de la récupération des informations de l\'utilisateur:', error);
-            }
-          );
-        } else {
-          console.error('User ID not found in localStorage.');
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        // Vérifier si l'utilisateur est authentifié et accède à une page autre que la page de connexion
+        if (this.userService.isAuthenticated() && event.url !== '/login') {
+          this.checkAdminStatus();
         }
+      }
+    });
 
     this.userFirstName = localStorage.getItem('userFirstName');
-    console.log(this.userFirstName)
   }
+
 
   redirectToNewBook() {
     this.router.navigate(['/newbook']);
@@ -89,6 +85,7 @@ export class HeaderComponent implements OnInit{
   logout(): void {
     localStorage.removeItem('authToken');
     localStorage.removeItem('userFirstName');
+    localStorage.removeItem('userId');
     this.router.navigate(['/']);
   }
 
@@ -96,7 +93,11 @@ export class HeaderComponent implements OnInit{
     return localStorage.getItem('authToken') !== null;
   }
 
+  checkAdminStatus(): void {
+    this.userService.isAdmin().subscribe(isAdmin => {
+        this.isAdmin = isAdmin;
 
-
-  
+        console.log(this.isAdmin, "admin testé");
+    });
+  }
 }
