@@ -39,9 +39,6 @@ export class HeaderComponent implements OnInit{
   userFirstName: string | null = '';
   isAdmin: boolean | undefined;
 
-
-
-
   constructor(private router: Router, private userService: UserService) {}
 
 
@@ -52,10 +49,29 @@ export class HeaderComponent implements OnInit{
         if (this.userService.isAuthenticated() && event.url !== '/login') {
           this.checkAdminStatus();
         }
+
       }
     });
 
     this.userFirstName = localStorage.getItem('userFirstName');
+    const userId = localStorage.getItem('userId');
+
+    if (userId) {
+      this.userService.getUserByID(userId).subscribe(
+        (user) => {
+          console.log('Informations utilisateur récupérées avec succès:', user);
+          // Vous pouvez mettre à jour les informations utilisateur dans votre composant si nécessaire
+        },
+        (error) => {
+          console.error('Erreur lors de la récupération des informations utilisateur:', error);
+          // En cas d'erreur, supprimer les informations de l'utilisateur du localStorage et rediriger vers la page d'accueil
+          localStorage.removeItem('authToken');
+          localStorage.removeItem('userId');
+          localStorage.removeItem('userFirstName');
+          this.router.navigate(['/']);
+        }
+      );
+    }
   }
 
 

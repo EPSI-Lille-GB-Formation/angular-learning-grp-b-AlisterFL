@@ -4,6 +4,8 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { BelongService } from '../../services/belong.service';
 import { Belong } from '../../models/belong';
+import { UserService } from '../../services/user.service';
+import { User } from '../../models/user';
 
 @Component({
   selector: 'book',
@@ -16,7 +18,7 @@ import { Belong } from '../../models/belong';
         <div class="book-info" [class.long-title]="book.title.length > 30">
           <div class="titleAuthor">
             <h2>{{ book.title }}</h2>
-            <h3>de Pierre Jacques</h3>
+            <h3>de {{ authorFirstName }} {{ authorLastName }}</h3>
           </div>
           <div class="categories">
             <div *ngFor="let bookCategoryLabel of bookCategoryLabels">
@@ -46,7 +48,10 @@ export class BookComponent implements OnInit {
   bookCategories: { id: number; label: string }[] = [];
   bookCategoryLabels: string[] = [];
 
-  constructor(private belongService: BelongService) {}
+  authorFirstName: string = '';
+  authorLastName: string = '';
+
+  constructor(private belongService: BelongService, private userService: UserService) {}
 
   ngOnInit(): void {
     if (this.book && this.book.id) {
@@ -66,6 +71,21 @@ export class BookComponent implements OnInit {
           );
         }
       );
+      // Récupérez les informations sur l'utilisateur (auteur) en utilisant l'ID de l'utilisateur
+      this.userService.getUserByID(this.book.userId).subscribe(
+        (user: User) => {
+          // Utilisez le nom de l'utilisateur comme nom de l'auteur
+          this.authorFirstName = user.firstname;
+          this.authorLastName = user.lastname;
+        },
+        (error: any) => {
+          console.error(
+            `Error loading user data for book ${this.book?.id}:`,
+            error
+          );
+        }
+      );
+
     }
   }
 
@@ -74,4 +94,8 @@ export class BookComponent implements OnInit {
       .map((categoryId) => this.categoryInfo.find((c) => c.id === categoryId))
       .filter((category): category is { id: number; label: string } => !!category);
   }
+
+
+
+
 }
