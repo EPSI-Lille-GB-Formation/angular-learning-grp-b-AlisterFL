@@ -45,7 +45,6 @@ export class HeaderComponent implements OnInit{
   ngOnInit(): void {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
-        // Vérifier si l'utilisateur est authentifié et accède à une page autre que la page de connexion
         if (this.userService.isAuthenticated() && event.url !== '/login') {
           this.checkAdminStatus();
         }
@@ -60,11 +59,9 @@ export class HeaderComponent implements OnInit{
       this.userService.getUserByID(userId).subscribe(
         (user) => {
           console.log('Informations utilisateur récupérées avec succès:', user);
-          // Vous pouvez mettre à jour les informations utilisateur dans votre composant si nécessaire
         },
         (error) => {
           console.error('Erreur lors de la récupération des informations utilisateur:', error);
-          // En cas d'erreur, supprimer les informations de l'utilisateur du localStorage et rediriger vers la page d'accueil
           localStorage.removeItem('authToken');
           localStorage.removeItem('userId');
           localStorage.removeItem('userFirstName');

@@ -21,19 +21,19 @@ export class AdminGuard implements CanActivate {
             if (user && user.role === 'admin') {
               resolve(true); // Autoriser l'accès à la route
             } else {
-              this.router.navigate(['/']); // Rediriger vers la page d'accueil si l'utilisateur n'est pas admin
+              this.router.navigate(['/']);
               resolve(false);
             }
           },
           (error) => {
             console.error('Erreur lors de la récupération des informations de l\'utilisateur:', error);
-            this.router.navigate(['/']); // Rediriger vers la page d'accueil en cas d'erreur
+            this.router.navigate(['/']);
             resolve(false);
           }
         );
       } else {
         console.error('User ID not found in localStorage.');
-        this.router.navigate(['/']); // Rediriger vers la page d'accueil si l'ID utilisateur n'est pas trouvé
+        this.router.navigate(['/']);
         resolve(false);
       }
     });

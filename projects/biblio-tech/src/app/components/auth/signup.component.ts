@@ -69,10 +69,10 @@ import { Router } from '@angular/router';
   styleUrls: ['./auth-style.css']
 })
 export class SignUpComponent {
-  user: User = new User('', '', '', '', '', 'user'); 
+  user: User = new User('', '', '', '', '', '');
+  isAdmin: boolean = false;
 
   constructor(private userService: UserService, private router: Router) {}
-
 
   onSubmit(): void {
 
@@ -99,7 +99,6 @@ export class SignUpComponent {
       },
       (error) => {
         console.error('Erreur lors de l\'ajout de l\'utilisateur:', error);
-        // Gérez l'erreur, par exemple, affichez un message à l'utilisateur
       }
     );
     this.userService.getUsers().subscribe(
@@ -112,7 +111,8 @@ export class SignUpComponent {
   }
 
   onRoleChange(event: any): void {
-    this.user.role = event.target?.checked ? 'admin' : 'user';
-}
+    this.isAdmin = event.target.checked;
+    this.user.role = this.isAdmin ? 'admin' : 'user';
+  }
 
 }

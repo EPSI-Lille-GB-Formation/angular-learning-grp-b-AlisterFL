@@ -74,7 +74,6 @@ export class BookList_Component {
 
   filterBooks(): void {
 
-      // Vérifier si selectedCategoryId est bien un nombre
     if (typeof this.selectedCategoryId !== 'number') {
       console.error('Selected category ID is not a number.');
       return;

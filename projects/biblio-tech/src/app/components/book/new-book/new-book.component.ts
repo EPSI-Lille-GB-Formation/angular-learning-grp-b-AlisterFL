@@ -116,11 +116,8 @@ export class NewBookComponent implements OnInit{
           }
         );
       });
-
-      // Rediriger vers une page appropriée après l'ajout du livre
-      // this.router.navigate(['/books', this.createSlug(newBook.title), newBook.id]);
+      this.router.navigate(['/books', this.createSlug(newBook.title), newBook.id]);
     },
-    // ... (le reste de la méthode reste inchangé) ...
   );
 
 

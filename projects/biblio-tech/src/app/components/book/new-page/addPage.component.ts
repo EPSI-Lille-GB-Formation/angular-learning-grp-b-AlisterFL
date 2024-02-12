@@ -64,7 +64,7 @@ export class AddPageComponent {
         
         // Créer une instance de la classe Page avec les données
         const newPage = new Page(
-          0, // ID peut être temporairement mis à 0 car il sera généré côté serveur
+          0, // temporaire
           newPageData.bookId,
           newPageData.title,
           newPageData.content,
@@ -76,18 +76,16 @@ export class AddPageComponent {
       // Appeler le service pour ajouter la nouvelle page
       this.pageService.addPage(newPage).subscribe(
         () => {
-          // Fermer le pop-up et transmettre un signal de succès à la page principale
           this.dialogRef.close(true);
         },
         error => {
           console.error('Erreur lors de l\'ajout de la page:', error);
-          // Gérer l'erreur ou afficher un message à l'utilisateur
         }
       );
     }
   }
 
-  // Fonction pour fermer le pop-up sans ajouter de page
+  // Fermer le pop-up sans ajouter de page
   onCancel(): void {
     this.dialogRef.close(false);
   }
